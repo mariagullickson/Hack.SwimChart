@@ -8,16 +8,30 @@
 <script type="text/javascript">
 
   $(document).ready(function() {
-    var sys = arbor.ParticleSystem(1000, 600, 0.5);
+    var sys = arbor.ParticleSystem(1000, 600, 0.8);
     sys.parameters({gravity: true});
     sys.renderer = Renderer("#viewport")
-    %for item in data:
-      sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors[item['ItemType']]}}', 'shape': 'dot', 'label': '{{item['Name']}}'})
+    %if swimlane:
+      sys.addNode('root', {'color': '{{nodeColors['root']}}', 'shape': 'dot', 'label': 'Swimlanes'})
+      %for item in data:
+        sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors[item['ItemType']]}}', 'shape': 'dot', 'label': '{{item['Name']}}'})
 
-      %if item['ParentUuids']:
-        %for parent in item['ParentUuids']:
-          sys.addEdge('{{parent}}', '{{item['Uuid']}}', {'color': 'grey'})
+        %if item['ParentUuids']:
+          %for parent in item['ParentUuids']:
+            sys.addEdge('{{parent}}', '{{item['Uuid']}}', {'color': 'grey'})
+          %end
+        %else:
+	  sys.addEdge('root', '{{item['Uuid']}}', {'color': 'grey'})
         %end
+      %end
+    %else:
+      sys.addNode('root', {'color': '{{nodeColors['root']}}', 'shape': 'dot', 'label': 'Swimlanes'})
+      %for item in data:
+        %if item['ParentUuids']:
+	  %continue
+	%end
+        sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors[item['ItemType']]}}', 'shape': 'dot', 'label': '{{item['Name']}}'})
+        sys.addEdge('root', '{{item['Uuid']}}', {'color': 'grey'})
       %end
     %end
 
@@ -28,7 +42,7 @@
 <body>
 <h1>SwimChart</h1>
 
-  <canvas id="viewport" width="1200" height="1000"></canvas>
+  <canvas id="viewport" width="1000" height="800"></canvas>
 
 </body>
 </html>

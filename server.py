@@ -13,25 +13,33 @@ def hello(name):
 @bottle.route('/swimchart')
 def showStuff():
     # load the raw data
-    jsonData = urllib2.urlopen(
-        'http://toolbox.rico.snagajob.corp:83/swimchart')
+    url = 'http://toolbox.rico.snagajob.corp:83/swimchart'
+    if 'swimlane' in bottle.request.query:
+        url += '?swimlaneid=%s' % bottle.request.query['swimlane']
+    jsonData = urllib2.urlopen(url)
     data = json.loads(jsonData.read())
     nodeColors = {
-        'swimlane': 'orange',
-        'Presentation/HTML/UI': 'red',
-        'Foxpro': 'red',
-        'REST API/IIS Hosted Service': 'purple',
-        'WCF Service Adapter': 'purple',
-        'Windows Service (EXE)': 'purple',
-        'Pervasive': 'purple',
-        'Mongo Config': 'blue',
-        'MySQL Database': 'blue',
-        'Solr 4.x': 'blue',
-        'Solr': 'blue',
+        'root': 'orange',
+        'swimlane': 'red',
+        'Presentation/HTML/UI': 'purple',
+        'Foxpro': 'purple',
+        'REST API/IIS Hosted Service': 'blue',
+        'WCF Service Adapter': 'blue',
+        'Windows Service (EXE)': 'blue',
+        'Pervasive': 'blue',
+        'Mongo Config': 'green',
+        'MySQL Database': 'green',
+        'Solr 4.x': 'green',
+        'Solr': 'green',
         }
 
-    return bottle.template('swimchart', data=data['List'],
-                           nodeColors=nodeColors)
+    if 'swimlane' not in bottle.request.query:
+        bottle.request.query['swimlane'] = ''
+
+    return bottle.template('swimchart',
+                           data=data['List'],
+                           nodeColors=nodeColors,
+                           swimlane=bottle.request.query['swimlane'])
 
 
 @bottle.route('/assets/:filepath#.*#')
