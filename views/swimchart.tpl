@@ -12,7 +12,7 @@
     sys.parameters({gravity: true});
     sys.renderer = Renderer("#viewport")
     %if swimlane:
-      sys.addNode('root', {'color': '{{nodeColors['root']}}', 'shape': 'dot', 'label': 'Swimlanes'})
+      sys.addNode('root', {'color': '{{nodeColors['root']}}', 'shape': 'dot', 'label': 'Swimlanes', 'link': '/swimchart'})
       %for item in data:
         sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors[item['ItemType']]}}', 'shape': 'dot', 'label': '{{item['Name']}}'})
 
@@ -30,7 +30,11 @@
         %if item['ParentUuids']:
 	  %continue
 	%end
-        sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors[item['ItemType']]}}', 'shape': 'dot', 'label': '{{item['Name']}}'})
+	%if item['ItemType'] == 'swimlane':
+          sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors[item['ItemType']]}}', 'shape': 'dot', 'label': '{{item['Name']}}', 'link': '/swimchart?swimlane={{item['Name']}}'})
+	%else:
+          sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors[item['ItemType']]}}', 'shape': 'dot', 'label': '{{item['Name']}}'})
+        %end
         sys.addEdge('root', '{{item['Uuid']}}', {'color': 'grey'})
       %end
     %end
