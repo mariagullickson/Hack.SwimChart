@@ -28,6 +28,7 @@ def showStuff():
         'Windows Service (EXE)': 'blue',
         'Pervasive': 'blue',
         'Mongo Config': 'green',
+        'Mongo Database': 'green',
         'MySQL Database': 'green',
         'Solr 4.x': 'green',
         'Solr': 'green',
