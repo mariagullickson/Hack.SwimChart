@@ -14,13 +14,13 @@
     %if swimlane:
       %for item in data:
         %if item['Stack'] == 'swimlane' and item['Name'] == swimlane:
-          sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors['root']}}', 'shape': 'rect', 'label':'{{item['Name']}}', 'link': '/swimchart'})
+          sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors['root']}}', 'shape': 'rect', 'label':'{{item['Name']}}', 'link': '/swimchart', 'border': 'lawngreen'})
 	%elif item['Stack'] == 'swimlane':
-          sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors[item['Stack']]}}', 'shape': 'rect', 'label': '{{item['Name']}}', 'border': 1})
+          sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors[item['Stack']]}}', 'shape': 'rect', 'label': '{{item['Name']}}', 'border': 'fuchsia'})
 	%elif item['Swimlane'] != swimlane:
-          sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors['Bad'+item['Stack']]}}', 'shape': 'rect', 'label': '{{item['Name']}}', 'border': 1})
+          sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors['Bad'+item['Stack']]}}', 'shape': 'rect', 'label': '{{item['Name']}}', 'border': 'fuchsia'})
 	%else:
-          sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors[item['Stack']]}}', 'shape': 'rect', 'label': '{{item['Name']}}'})
+          sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors[item['Stack']]}}', 'shape': 'rect', 'label': '{{item['Name']}}', 'border': 'fuchsia'})
         %end
         %if item['ParentUuids']:
           %for parent in item['ParentUuids']:

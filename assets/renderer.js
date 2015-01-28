@@ -47,9 +47,7 @@
 			nodeBoxes[node.name] = [pt.x-w/2, pt.y-w/2, w,w]
 		    }else{
 			if (node.data.border)
-   			    gfx.rect(pt.x-w/2-5, pt.y-15, w+10,30, 4, {fill:'fuchsia'})
-                        else
-   			    gfx.rect(pt.x-w/2-5, pt.y-15, w+10,30, 4, {fill:'lawngreen'})
+   			    gfx.rect(pt.x-w/2-5, pt.y-15, w+10,30, 4, {fill:node.data.border})
 			gfx.rect(pt.x-w/2, pt.y-10, w,20, 4, {fill:ctx.fillStyle})
 			nodeBoxes[node.name] = [pt.x-w/2, pt.y-11, w, 22]
 		    }
