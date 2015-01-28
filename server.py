@@ -13,8 +13,8 @@ def hello(name):
 @bottle.route('/swimchart')
 def showStuff():
     # load the raw data
-    # url = 'http://toolbox.rico.snagajob.corp:83/swimchart'
-    url = 'http://localhost:54422/swimchart'
+    url = 'http://toolbox.rico.snagajob.corp:83/swimchart'
+    # url = 'http://localhost:54422/swimchart'
     if 'swimlane' in bottle.request.query:
         url += '?swimlaneid=%s' % bottle.request.query['swimlane']
     jsonData = urllib2.urlopen(url)
