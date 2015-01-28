@@ -20,7 +20,7 @@
 	%elif item['Swimlane'] != swimlane:
           sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors['Bad'+item['Stack']]}}', 'shape': 'rect', 'label': '{{item['Name']}}', 'border': 'fuchsia'})
 	%else:
-          sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors[item['Stack']]}}', 'shape': 'rect', 'label': '{{item['Name']}}', 'border': 'fuchsia'})
+          sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors[item['Stack']]}}', 'shape': 'rect', 'label': '{{item['Name']}}', 'border': 'lawngreen'})
         %end
         %if item['ParentUuids']:
           %for parent in item['ParentUuids']:
