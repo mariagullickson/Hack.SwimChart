@@ -12,11 +12,11 @@
     sys.parameters({gravity: true});
     sys.renderer = Renderer("#viewport")
     %for item in data:
-      sys.addNode('{{item['Uuid']}}', {color: '{{nodeColors[item['ItemType']]}}', 'shape': 'dot', 'label': '{{item['Name']}}'})
+      sys.addNode('{{item['Uuid']}}', {'color': '{{nodeColors[item['ItemType']]}}', 'shape': 'dot', 'label': '{{item['Name']}}'})
 
       %if item['ParentUuids']:
         %for parent in item['ParentUuids']:
-          sys.addEdge('{{parent}}', '{{item['Uuid']}}')
+          sys.addEdge('{{parent}}', '{{item['Uuid']}}', {'color': 'grey'})
         %end
       %end
     %end
