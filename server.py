@@ -13,7 +13,8 @@ def hello(name):
 @bottle.route('/swimchart')
 def showStuff():
     # load the raw data
-    url = 'http://toolbox.rico.snagajob.corp:83/swimchart'
+    # url = 'http://toolbox.rico.snagajob.corp:83/swimchart'
+    url = 'http://localhost:54422/swimchart'
     if 'swimlane' in bottle.request.query:
         url += '?swimlaneid=%s' % bottle.request.query['swimlane']
     jsonData = urllib2.urlopen(url)
@@ -32,6 +33,14 @@ def showStuff():
         'MySQL Database': 'green',
         'Solr 4.x': 'green',
         'Solr': 'green',
+        'Database' : 'green',
+        'BadDatabase' : 'lightgreen',
+        'Api' : 'blue',
+        'BadApi' : 'lightblue',
+        'Service' : 'blue',
+        'BadService' : 'lightblue',
+        'Web' : 'purple',
+        'BadWeb' : 'lightpurple',
         }
 
     if 'swimlane' not in bottle.request.query:
